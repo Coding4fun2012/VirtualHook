@@ -32,7 +32,7 @@ import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 
-import io.virtualapp.R;
+import io.virtualhook.R;
 
 import static android.view.GestureDetector.SimpleOnGestureListener;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;

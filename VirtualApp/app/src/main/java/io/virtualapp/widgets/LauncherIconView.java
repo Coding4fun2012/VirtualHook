@@ -16,7 +16,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.animation.DecelerateInterpolator;
 
-import io.virtualapp.R;
+import io.virtualhook.R;
 
 import static android.graphics.Canvas.ALL_SAVE_FLAG;
 

@@ -7,7 +7,7 @@ import com.github.moduth.blockcanary.BlockCanaryContext;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
-import io.virtualapp.BuildConfig;
+import io.virtualhook.BuildConfig;
 import io.virtualapp.VApp;
 
 /**

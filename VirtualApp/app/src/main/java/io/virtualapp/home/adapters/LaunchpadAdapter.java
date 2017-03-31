@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import io.virtualapp.R;
+import io.virtualhook.R;
 import io.virtualapp.abs.ui.VUiKit;
 import io.virtualapp.home.models.AppData;
 import io.virtualapp.home.models.MultiplePackageAppData;

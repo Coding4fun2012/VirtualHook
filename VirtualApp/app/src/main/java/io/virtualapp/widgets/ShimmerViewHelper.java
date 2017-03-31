@@ -8,7 +8,7 @@ import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
 
-import io.virtualapp.R;
+import io.virtualhook.R;
 
 public class ShimmerViewHelper {
 

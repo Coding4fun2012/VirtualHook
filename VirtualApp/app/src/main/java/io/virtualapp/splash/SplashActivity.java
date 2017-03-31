@@ -5,7 +5,7 @@ import android.view.WindowManager;
 
 import com.lody.virtual.client.core.VirtualCore;
 
-import io.virtualapp.R;
+import io.virtualhook.R;
 import io.virtualapp.VCommends;
 import io.virtualapp.abs.ui.VActivity;
 import io.virtualapp.abs.ui.VUiKit;

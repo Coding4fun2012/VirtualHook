@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import io.virtualapp.R;
+import io.virtualhook.R;
 
 /**
  * Displays a list of cards as a stack on the screen.

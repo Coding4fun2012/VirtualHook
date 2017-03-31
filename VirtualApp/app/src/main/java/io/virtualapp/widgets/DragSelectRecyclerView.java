@@ -14,7 +14,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import io.virtualapp.R;
+import io.virtualhook.R;
 
 /**
  * @author Aidan Follestad (afollestad)

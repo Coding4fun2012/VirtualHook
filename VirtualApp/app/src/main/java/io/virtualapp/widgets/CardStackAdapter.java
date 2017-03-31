@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
-import io.virtualapp.R;
+import io.virtualhook.R;
 
 /**
  * This class acts as an adapter for the {@link CardStackLayout} view. This

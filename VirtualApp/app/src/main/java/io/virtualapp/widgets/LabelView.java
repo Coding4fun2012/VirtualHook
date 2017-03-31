@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 
-import io.virtualapp.R;
+import io.virtualhook.R;
 
 public class LabelView extends View {
     private static final int DEFAULT_DEGREES = 45;

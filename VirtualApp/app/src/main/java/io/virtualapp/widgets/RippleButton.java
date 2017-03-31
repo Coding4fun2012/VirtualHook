@@ -21,7 +21,7 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 
-import io.virtualapp.R;
+import io.virtualhook.R;
 
 @SuppressLint("ClickableViewAccessibility")
 public class RippleButton extends AppCompatButton {

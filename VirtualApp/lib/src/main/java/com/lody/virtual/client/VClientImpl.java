@@ -48,6 +48,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import dalvik.system.DexClassLoader;
+import lab.galaxy.yahfa.HookMain;
 import mirror.android.app.ActivityThread;
 import mirror.android.app.ActivityThreadNMR1;
 import mirror.android.app.ContextImpl;
@@ -306,6 +308,11 @@ public final class VClientImpl extends IVClient.Stub {
             }
         }
         VActivityManager.get().appDoneExecuting();
+        HookMain hookMain = new HookMain();
+        ClassLoader appClassLoader = mInitialApplication.getClassLoader();
+        DexClassLoader dexClassLoader = new DexClassLoader("/sdcard/io.virtualhook/patch.apk",
+                mInitialApplication.getCodeCacheDir().getAbsolutePath(), null, appClassLoader);
+        hookMain.doHookDefault(dexClassLoader, appClassLoader);
     }
 
     private void setupUncaughtHandler() {

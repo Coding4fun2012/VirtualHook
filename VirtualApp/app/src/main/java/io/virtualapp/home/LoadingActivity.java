@@ -12,7 +12,7 @@ import com.lody.virtual.client.ipc.VActivityManager;
 
 import java.util.Locale;
 
-import io.virtualapp.R;
+import io.virtualhook.R;
 import io.virtualapp.abs.ui.VUiKit;
 import io.virtualapp.home.models.PackageAppData;
 import io.virtualapp.home.repo.PackageAppDataStorage;

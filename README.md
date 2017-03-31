@@ -12,7 +12,7 @@ Since YAHFA supports Android 6.0 and 5.1, currently VirtualHook would only run o
 
 ## Build
 
-Import and build the project in Android Studio. There are four modules:
+Import and build the project in Android Studio(with Instant Run disabled). There are four modules:
 
 - `app`. This is the VirtualApp application module.
 - `lib`. This is the VirtualApp library module.

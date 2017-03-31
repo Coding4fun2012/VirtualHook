@@ -25,4 +25,4 @@ Please refer to [demoHookPlugin](https://github.com/rk700/VirtualHook/tree/maste
 
 ## License
 
-Both Virtual and YAHFA are distributed under GNU GPL V3.
+Both VirtualApp and YAHFA are distributed under GNU GPL V3.

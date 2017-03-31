@@ -1,80 +1,28 @@
-[![VA banner](https://raw.githubusercontent.com/asLody/VirtualApp/master/Logo.png)](https://github.com/asLody/VirtualApp)
-
-[中国人猛戳这里](CHINESE.md "中文")
-
-About
------
-**VirtualApp** is an open platform for Android that allows you to create a `Virtual Space`,
-you can install and run apk inside. Beyond that, VirtualApp is also a `Plugin Framework`,
-the plugins running on VirtualApp does not require any constraints.
-VirtualApp does **not** require root, it is running on the `local process`.
-
-NOTICE
--------
-**This project has been authorized by the business.**
-
-**You are not allowed to modify the app module and put to the software market, if you do that, The consequences you know :)**
-
-**VirtualApp is not free, If you need to use the lib code, please send email to me :)**
-
-Background
-----------
-
-VirtualApp was born in early 2015, Originally, it is just a simple plugin framework, 
-But as time goes on,
-the compatibility of it is getting better and better.
-in the end, it evolved into a `Virtual Container`.
-
-
-Get started
+VirtualHook
 -----------
-If you use latest android studio (version 2.0 or above), please disable `Instant Run`.
-Open `Setting | Build,Exception,Deployment`, and disable `Enable Instant Run to hot swap...`
 
-**Goto your Application and insert the following code:**
-```java
-    @Override
-    protected void attachBaseContext(Context base) {
-        super.attachBaseContext(base);
-        try {
-            VirtualCore.get().startup(base);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-    }
-```
+## Introduction 
 
-**Install a virtual App:**
-```java
-    VirtualCore.get().installApp({APK PATH}, flags);
-    
-```
+VirtualHook is a tool for hooking application without root permission. It is based on two projects:
 
-**Launch a virtual App:**
-```java
-    //VirtualApp support multi-user-mode which can run multiple instances of a same app.
-    //if you don't need this feature, just set `{userId}` to 0.
-    Intent intent = VirtualCore.get().getLaunchIntent({PackageName}, {userId});
-    VActivityManager.get().startActivity(intent, {userId});
-```
+- [VirtualApp](https://github.com/asLody/VirtualApp). It's a plugin framework which allows running applications in its virtual space.
+- [YAHFA](https://github.com/rk700/YAHFA). It's a hook framework for ART which allows hooking Java method of the application.
 
-**Uninstall a virtual App:**
-```java
-    VirtualCore.get().uninstallApp({PackageName});
-```
+Since YAHFA supports Android 6.0 and 5.1, currently VirtualHook would only run on those platforms.
 
-More details, please read the source code of demo app, :-)
+## Build
 
-Documentation
--------------
+Import and build the project in Android Studio. There are four modules:
 
-VirtualApp currently has **no documentation**, If you are interested in VirtualApp, please send email to me.
+- `app`. This is the VirtualApp application module.
+- `lib`. This is the VirtualApp library module.
+- `YAHFA`. This is the YAHFA hook module.
+- `demoHookPlugin`. This is a demo hook plugin which compiles to an APK.
 
-License
--------
-GPL 3.0
+After building the APKs, push the `demoHookPlugin` APK to device at `/sdcard/io.virtualhook/patch.apk` and run the main application. The hook plugin would be applied to all applications running in VirtualApp.
 
-About Author
-------------
+Please refer to [demoHookPlugin](https://github.com/rk700/VirtualHook/tree/master/VirtualApp/demoHookPlugin) for more details.
 
-    Lody (imlody@foxmail.com)
+## License
+
+Both Virtual and YAHFA are distributed under GNU GPL V3.

@@ -308,6 +308,7 @@ public final class VClientImpl extends IVClient.Stub {
             }
         }
         VActivityManager.get().appDoneExecuting();
+
         HookMain hookMain = new HookMain();
         ClassLoader appClassLoader = mInitialApplication.getClassLoader();
         DexClassLoader dexClassLoader = new DexClassLoader("/sdcard/io.virtualhook/patch.apk",

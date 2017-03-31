@@ -604,7 +604,7 @@ void IOUniformer::startUniformer(int api_level) {
     HOOK_SYMBOL(RTLD_DEFAULT, fchownat);
     HOOK_SYMBOL(RTLD_DEFAULT, mknodat);
     hook_dlopen(api_level);
-    HOOK_SYMBOL(RTLD_DEFAULT, dlsym);
+//    HOOK_SYMBOL(RTLD_DEFAULT, dlsym);
 
 #if defined(__i386__) || defined(__x86_64__)
     // Do nothing

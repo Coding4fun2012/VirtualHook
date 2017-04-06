@@ -12,6 +12,8 @@ Since YAHFA supports Android 6.0 and 5.1, currently VirtualHook would only run o
 
 ## Build
 
+(__ATTENTION__: Hook may fail if the target method is compiled to be inlined. However, such optimization would not apply to debuggable application. Therefore, please make sure that the __VirtualHook app is built with debuggable option on__.)
+
 Import and build the project in Android Studio(__with Instant Run disabled__). There are four modules:
 
 - `app`. This is the VirtualApp application module.

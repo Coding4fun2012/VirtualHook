@@ -25,6 +25,10 @@ After building the APKs, push the `demoHookPlugin` APK to device at `/sdcard/io.
 
 Please refer to [demoHookPlugin](https://github.com/rk700/VirtualHook/tree/master/VirtualApp/demoHookPlugin) for more details.
 
+## Example Hook Plugins
+
+- [CertUnpinning](https://github.com/rk700/CertUnpinning): HTTPS certificate unpinning.
+
 ## License
 
 Both VirtualApp and YAHFA are distributed under GNU GPL V3.

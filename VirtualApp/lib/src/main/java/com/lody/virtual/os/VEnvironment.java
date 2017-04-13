@@ -41,8 +41,7 @@ public class VEnvironment {
                 FileUtils.chmod(DATA_DIRECTORY.getAbsolutePath(), FileUtils.FileMode.MODE_755);
                 FileUtils.chmod(getDataAppDirectory().getAbsolutePath(), FileUtils.FileMode.MODE_755);
             } catch (Exception e) {
-                // ignore
-                VLog.e(TAG, "chmod dir", e);
+                e.printStackTrace();
             }
         }
     }
@@ -86,6 +85,14 @@ public class VEnvironment {
 
     public static File getPackageListFile() {
         return new File(getSystemSecureDirectory(), "packages.ini");
+    }
+
+    /**
+     *
+     * @return Virtual storage config file
+     */
+    public static File getVSConfigFile() {
+        return new File(getSystemSecureDirectory(), "vss.ini");
     }
 
     public static File getBakPackageListFile() {

@@ -1,6 +1,11 @@
 #include "common.S"
 
 .text
+BEGIN_ENTRY hook_new_entry_24
+    ldr r0, [r0, #28]
+    ldr pc, [r0, #32]
+END_ENTRY hook_new_entry_24
+
 BEGIN_ENTRY hook_new_entry_23
     ldr r0, [r0, #32]
     ldr pc, [r0, #36]
@@ -10,3 +15,8 @@ BEGIN_ENTRY hook_new_entry_22
     ldr r0, [r0, #40]
     ldr pc, [r0, #44]
 END_ENTRY hook_new_entry_22
+
+BEGIN_ENTRY hook_new_entry_21
+ldr r0, [r0, #32]
+ldr pc, [r0, #40]
+END_ENTRY hook_new_entry_21

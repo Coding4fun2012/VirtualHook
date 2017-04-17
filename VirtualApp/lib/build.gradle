@@ -4,8 +4,8 @@ android {
     compileSdkVersion 24
     buildToolsVersion "25.0.2"
     defaultConfig {
-        minSdkVersion 22
-        targetSdkVersion 25
+        minSdkVersion 21
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         externalNativeBuild {

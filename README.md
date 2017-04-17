@@ -8,7 +8,13 @@ VirtualHook is a tool for hooking application without root permission. It is bas
 - [VirtualApp](https://github.com/asLody/VirtualApp). It's a plugin framework which allows running applications in its virtual space.
 - [YAHFA](https://github.com/rk700/YAHFA). It's a hook framework for ART which allows hooking Java method of the application.
 
-Since YAHFA supports Android 6.0 and 5.1, currently VirtualHook would only run on those platforms.
+Currently VirtualHook supports:
+
+- Android 5.0(API 21)
+- Android 5.1(API 22)
+- Android 6.0(API 23)
+- __EXPERIMENTAL__ Android 7.0(API 24)
+- __EXPERIMENTAL__ Android 7.1(API 25)
 
 ## Build
 

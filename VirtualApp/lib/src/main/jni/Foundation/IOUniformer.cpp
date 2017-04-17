@@ -8,7 +8,7 @@
 static list<std::string> ReadOnlyPathMap;
 static std::map<std::string/*orig_path*/, std::string/*new_path*/> IORedirectMap;
 static std::map<std::string/*orig_path*/, std::string/*new_path*/> RootIORedirectMap;
-
+int apiLevel;
 
 /**
  *
@@ -28,6 +28,27 @@ hook_template(void *handle, const char *symbol, void *new_func, void **old_func)
 #else
     GodinHook::NativeHook::registeredHook((size_t) addr, (size_t) new_func, (size_t **) old_func);
 #endif
+}
+
+static char **patchArgv(char * const *argv) {
+    int i=0,j;
+    while(argv[i] != NULL) {
+        i++;
+    }
+    char **res = (char **)malloc((i+3)*sizeof(char *));
+    for(j=0; j<i; j++) {
+        res[j] = argv[j];
+    }
+    if(apiLevel >= 22) {
+        res[j] = "--compile-pic";
+        j++;
+    }
+    if(apiLevel >= 23) {
+        res[j] = "--debuggable";
+        j++;
+    }
+    res[j] = NULL;
+    return res;
 }
 
 
@@ -508,23 +529,26 @@ HOOK_DEF(int, execve, const char *pathname, char *const argv[], char *const envp
      * Fix the LD_PRELOAD.
      * Now we just fill it.
      */
-    if (!strcmp(pathname, "dex2oat")) {
+    char **newArgv;
+    if (!strcmp(pathname, "/system/bin/dex2oat")) {
         for (int i = 0; envp[i] != NULL; ++i) {
             if (!strncmp(envp[i], "LD_PRELOAD=", 11)) {
                 const_cast<char **>(envp)[i] = getenv("LD_PRELOAD");
             }
         }
+        newArgv = patchArgv(argv);
     }
 
     LOGD("execve: %s, LD_PRELOAD: %s.", pathname, getenv("LD_PRELOAD"));
     for (int i = 0; argv[i] != NULL; ++i) {
-        LOGD("argv[%i] : %s", i, argv[i]);
+        LOGD("argv[%i] : %s", i, newArgv[i]);
     }
     for (int i = 0; envp[i] != NULL; ++i) {
         LOGD("envp[%i] : %s", i, envp[i]);
     }
     const char *redirect_path = match_redirected_path(pathname);
-    int ret = syscall(__NR_execve, redirect_path, argv, envp);
+    int ret = syscall(__NR_execve, redirect_path, newArgv, envp);
+    FREE(newArgv, argv);
     FREE(redirect_path, pathname);
     return ret;
 }
@@ -615,6 +639,7 @@ void hook_dlopen(int api_level) {
 
 
 void IOUniformer::startUniformer(int api_level, int preview_api_level) {
+    apiLevel = api_level;
     HOOK_SYMBOL(RTLD_DEFAULT, kill);
     HOOK_SYMBOL(RTLD_DEFAULT, __getcwd);
     HOOK_SYMBOL(RTLD_DEFAULT, truncate);

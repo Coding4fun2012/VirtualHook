@@ -538,6 +538,9 @@ HOOK_DEF(int, execve, const char *pathname, char *const argv[], char *const envp
         }
         newArgv = patchArgv(argv);
     }
+    else {
+        newArgv = (char **)argv;
+    }
 
     LOGD("execve: %s, LD_PRELOAD: %s.", pathname, getenv("LD_PRELOAD"));
     for (int i = 0; argv[i] != NULL; ++i) {

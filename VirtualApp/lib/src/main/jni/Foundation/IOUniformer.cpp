@@ -3,9 +3,9 @@
 //
 #include <util.h>
 #include "IOUniformer.h"
-#include "native_hook.h"
+//#include "native_hook.h"
 
-static list<std::string> ReadOnlyPathMap;
+static std::list<std::string> ReadOnlyPathMap;
 static std::map<std::string/*orig_path*/, std::string/*new_path*/> IORedirectMap;
 static std::map<std::string/*orig_path*/, std::string/*new_path*/> RootIORedirectMap;
 int apiLevel;
@@ -23,11 +23,7 @@ hook_template(void *handle, const char *symbol, void *new_func, void **old_func)
         LOGW("Error: unable to find the Symbol : %s.", symbol);
         return;
     }
-#if defined(__i386__) || defined(__x86_64__)
     inlineHookDirect((unsigned int) (addr), new_func, old_func);
-#else
-    GodinHook::NativeHook::registeredHook((size_t) addr, (size_t) new_func, (size_t **) old_func);
-#endif
 }
 
 static char **patchArgv(char * const *argv) {
@@ -39,7 +35,7 @@ static char **patchArgv(char * const *argv) {
     for(j=0; j<i; j++) {
         res[j] = argv[j];
     }
-    if(apiLevel >= 22) {
+    if(apiLevel >= 21) {
         res[j] = "--compile-pic";
         j++;
     }
@@ -117,7 +113,7 @@ void IOUniformer::readOnly(const char *_path) {
 
 bool isReadOnlyPath(const char *_path) {
     std::string path(_path);
-    list<std::string>::iterator it;
+    std::list<std::string>::iterator it;
     for (it = ReadOnlyPathMap.begin(); it != ReadOnlyPathMap.end(); ++it) {
         if (startWith(path, *it)) {
             return true;
@@ -643,29 +639,13 @@ void hook_dlopen(int api_level) {
 
 void IOUniformer::startUniformer(int api_level, int preview_api_level) {
     apiLevel = api_level;
+    HOOK_SYMBOL(RTLD_DEFAULT, chroot);
     HOOK_SYMBOL(RTLD_DEFAULT, kill);
-    HOOK_SYMBOL(RTLD_DEFAULT, __getcwd);
+    HOOK_SYMBOL(RTLD_DEFAULT, chdir);
     HOOK_SYMBOL(RTLD_DEFAULT, truncate);
-    HOOK_SYMBOL(RTLD_DEFAULT, __statfs64);
     HOOK_SYMBOL(RTLD_DEFAULT, execve);
-    HOOK_SYMBOL(RTLD_DEFAULT, __open);
-    if ((api_level < 25) || (api_level == 25 && preview_api_level == 0)) {
-        HOOK_SYMBOL(RTLD_DEFAULT, utimes);
-        HOOK_SYMBOL(RTLD_DEFAULT, mkdir);
-        HOOK_SYMBOL(RTLD_DEFAULT, chmod);
-        HOOK_SYMBOL(RTLD_DEFAULT, lstat);
-        HOOK_SYMBOL(RTLD_DEFAULT, link);
-        HOOK_SYMBOL(RTLD_DEFAULT, symlink);
-        HOOK_SYMBOL(RTLD_DEFAULT, mknod);
-        HOOK_SYMBOL(RTLD_DEFAULT, rmdir);
-        HOOK_SYMBOL(RTLD_DEFAULT, chown);
-        HOOK_SYMBOL(RTLD_DEFAULT, rename);
-        HOOK_SYMBOL(RTLD_DEFAULT, stat);
-        HOOK_SYMBOL(RTLD_DEFAULT, chdir);
-        HOOK_SYMBOL(RTLD_DEFAULT, access);
-        HOOK_SYMBOL(RTLD_DEFAULT, readlink);
-        HOOK_SYMBOL(RTLD_DEFAULT, unlink);
-    }
+
+    HOOK_SYMBOL(RTLD_DEFAULT, utimes);
     HOOK_SYMBOL(RTLD_DEFAULT, fstatat);
     HOOK_SYMBOL(RTLD_DEFAULT, fchmodat);
     HOOK_SYMBOL(RTLD_DEFAULT, symlinkat);
@@ -680,10 +660,4 @@ void IOUniformer::startUniformer(int api_level, int preview_api_level) {
     HOOK_SYMBOL(RTLD_DEFAULT, fchownat);
     HOOK_SYMBOL(RTLD_DEFAULT, mknodat);
 //    hook_dlopen(api_level);
-
-#if defined(__i386__) || defined(__x86_64__)
-    // Do nothing
-#else
-    GodinHook::NativeHook::hookAllRegistered();
-#endif
 }
